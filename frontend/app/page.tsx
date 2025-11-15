@@ -2,8 +2,6 @@
 
 import { TodoDTO } from "@/DTOs/todo-dto";
 import { useEffect, useState } from "react";
-import { TiDeleteOutline } from "react-icons/ti";
-import { FiEdit } from "react-icons/fi";
 import { createTodo, getAllTodos } from "@/services/todo-services";
 import TodoField from "@/components/organism/todo-field";
 
@@ -11,11 +9,6 @@ export default function Home() {
   const [todos, setTodos] = useState<TodoDTO[] | []>([]);
   const [title, setTitle] = useState("");
   const [description, setDescription] = useState("");
-
-  const [editMode, setEditMode] = useState(false);
-  const [editTodoId, setEditTodoId] = useState<number | null>(null);
-  const [editTitle, setEditTitle] = useState("");
-  const [editDescription, setEditDescription] = useState("");
 
   const fetchTodos = async () => {
     const res = await getAllTodos();
@@ -35,46 +28,6 @@ export default function Home() {
     fetchTodos();
   };
 
-  const handleToggleTodo = async (todo: TodoDTO) => {
-    await fetch(`http://localhost:8080/todos/${todo.id}`, {
-      method: "PUT",
-      headers: { "Content-Type": "application/json" },
-      body: JSON.stringify({ completed: !todo.completed }),
-    });
-
-    fetchTodos();
-  };
-
-  const handleDeleteTodo = async (id: number) => {
-    await fetch(`http://localhost:8080/todos/${id}`, {
-      method: "DELETE",
-    });
-    fetchTodos();
-  };
-
-  const startEdit = (todo: TodoDTO) => {
-    setEditMode(true);
-    setEditTodoId(todo.id);
-    setEditTitle(todo.title);
-    setEditDescription(todo.description || "");
-  };
-
-  const saveEdit = async () => {
-    if (!editTodoId) return;
-
-    await fetch(`http://localhost:8080/todos/${editTodoId}`, {
-      method: "PUT",
-      headers: { "Content-Type": "application/json" },
-      body: JSON.stringify({
-        title: editTitle,
-        description: editDescription,
-      }),
-    });
-
-    setEditMode(false);
-    setEditTodoId(null);
-    fetchTodos();
-  };
 
   return (
     <main className="flex flex-col items-center mt-12 min-h-screen p-4 w-full">

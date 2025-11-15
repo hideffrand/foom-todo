@@ -1,6 +1,11 @@
 "use client";
 
 import { TodoDTO } from "@/DTOs/todo-dto";
+import {
+  deleteTodo,
+  editTodoContent,
+  editTodoStatus,
+} from "@/services/todo-services";
 import { useState } from "react";
 import { FiEdit } from "react-icons/fi";
 import { TiDeleteOutline } from "react-icons/ti";
@@ -12,37 +17,18 @@ export default function TodoField({ todo }: { todo: TodoDTO }) {
   const [editDescription, setEditDescription] = useState("");
 
   const handleToggleTodo = async (todo: TodoDTO) => {
-    await fetch(`http://localhost:8080/todos/${todo.id}`, {
-      method: "PUT",
-      headers: { "Content-Type": "application/json" },
-      body: JSON.stringify({ completed: !todo.completed }),
-    });
-
-    // fetchTodos();
+    await editTodoStatus(todo);
   };
 
   const handleDeleteTodo = async (id: number) => {
-    await fetch(`http://localhost:8080/todos/${id}`, {
-      method: "DELETE",
-    });
-    // fetchTodos();
+    await deleteTodo(id);
   };
 
   const saveEdit = async () => {
     if (!editTodoId) return;
-
-    await fetch(`http://localhost:8080/todos/${editTodoId}`, {
-      method: "PUT",
-      headers: { "Content-Type": "application/json" },
-      body: JSON.stringify({
-        title: editTitle,
-        description: editDescription,
-      }),
-    });
-
+    await editTodoContent(editTodoId, editTitle, editDescription);
     setEditMode(false);
     setEditTodoId(null);
-    // fetchTodos();
   };
 
   const startEdit = (todo: TodoDTO) => {

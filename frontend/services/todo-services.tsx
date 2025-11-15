@@ -26,11 +26,28 @@ export const createTodo = async (title: string, description: string) => {
   return res.json();
 };
 
-export const toggleTodo = async (todo: TodoDTO) => {
+export const editTodoStatus = async (todo: TodoDTO) => {
   const res = await fetch(`${API_URL}/${todo.id}`, {
     method: "PUT",
     headers: { "Content-Type": "application/json" },
     body: JSON.stringify({ completed: !todo.completed }),
+  });
+
+  return res.json();
+};
+
+export const editTodoContent = async (
+  id: number,
+  title: string,
+  description: string
+) => {
+  const res = await fetch(`${API_URL}/${id}`, {
+    method: "PUT",
+    headers: { "Content-Type": "application/json" },
+    body: JSON.stringify({
+      title: title,
+      description: description,
+    }),
   });
 
   return res.json();
