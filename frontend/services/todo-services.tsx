@@ -44,9 +44,9 @@ export const editTodoStatus = async (todo: TodoDTO) => {
     headers: { "Content-Type": "application/json" },
     body: JSON.stringify({ completed: !todo.completed }),
   });
-  const json = await res.json();
 
   if (!res.ok) {
+    const json = await res.json();
     console.error(json.error);
     alert("Failed to edit todo.");
     return false;
@@ -68,9 +68,9 @@ export const editTodoContent = async (
       description: description,
     }),
   });
-  const json = await res.json();
 
   if (!res.ok) {
+    const json = await res.json();
     console.error(json.error);
     alert("Failed to edit todo.");
     return false;
@@ -83,9 +83,9 @@ export const deleteTodo = async (id: number) => {
   const res = await fetch(`${API_URL}/${id}`, {
     method: "DELETE",
   });
-  const json = await res.json();
 
   if (!res.ok) {
+    const json = await res.json();
     console.error(json.error);
     alert("Failed to delete todo.");
     return false;
