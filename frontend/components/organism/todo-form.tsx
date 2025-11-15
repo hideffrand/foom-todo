@@ -20,6 +20,7 @@ export default function TodoForm({ refresh }: { refresh: () => void }) {
         className="border px-2 py-1 rounded"
         placeholder="Todo title..."
         value={title}
+        required
         onChange={(e) => setTitle(e.target.value)}
       />
 
