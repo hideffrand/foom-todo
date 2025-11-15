@@ -1,6 +1,7 @@
-const express = require("express");
+import express from "express";
+import * as todoService from "../services/todo.service.js";
+
 const router = express.Router();
-const todoService = require("../services/todo.service");
 
 router.get("/", async (req, res) => {
   const todos = await todoService.getAllTodos();
@@ -41,4 +42,4 @@ router.delete("/:id", async (req, res) => {
   res.sendStatus(204);
 });
 
-module.exports = router;
+export default router;

@@ -1,5 +1,5 @@
-const { DataTypes } = require("sequelize");
-const sequelize = require("../db/db");
+import { DataTypes } from "sequelize";
+import sequelize from "../db/db.js";
 
 const Todo = sequelize.define("Todo", {
   id: {
@@ -24,4 +24,4 @@ const Todo = sequelize.define("Todo", {
   },
 });
 
-module.exports = Todo;
+export default Todo;

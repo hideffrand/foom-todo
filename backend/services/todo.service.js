@@ -1,18 +1,18 @@
-const Todo = require("../models/todo.model");
+import Todo from "../models/todo.model.js";
 
-async function getAllTodos() {
+export async function getAllTodos() {
   return await Todo.findAll();
 }
 
-async function getTodoById(id) {
+export async function getTodoById(id) {
   return await Todo.findByPk(id);
 }
 
-async function createTodo(data) {
+export async function createTodo(data) {
   return await Todo.create(data);
 }
 
-async function updateTodo(id, data) {
+export async function updateTodo(id, data) {
   const todo = await Todo.findByPk(id);
   if (!todo) return null;
 
@@ -20,18 +20,10 @@ async function updateTodo(id, data) {
   return todo;
 }
 
-async function deleteTodo(id) {
+export async function deleteTodo(id) {
   const todo = await Todo.findByPk(id);
   if (!todo) return null;
 
   await todo.destroy();
   return true;
 }
-
-module.exports = {
-  getAllTodos,
-  getTodoById,
-  createTodo,
-  updateTodo,
-  deleteTodo,
-};
