@@ -1,0 +1,17 @@
+### GET all todos
+GET http://localhost:3000/todos/
+Accept: application/json
+
+###
+
+
+### Create a new todo
+POST http://localhost:3000/todos/
+Content-Type: application/json
+
+{
+  "title": "Belajar Sequelize",
+  "description": "Coba CRUD sederhana"
+}
+
+###
